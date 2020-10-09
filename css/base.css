@@ -1,0 +1,7 @@
+body {
+  background: url("../img/blocks/stone_bricks.png");
+  background-size: 4rem 4rem;
+  image-rendering: pixelated;
+  width: 80%;
+  margin: 40px auto;
+}
