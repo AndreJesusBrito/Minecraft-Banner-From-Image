@@ -5,3 +5,7 @@ body {
   width: 80%;
   margin: 40px auto;
 }
+
+canvas {
+  width: 10rem;
+}
