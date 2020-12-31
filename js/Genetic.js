@@ -23,7 +23,7 @@ export class Genetic {
    * @abstract
    * @returns {T[]} the selected individuals (same size as original)
    */
-  select(population, fitness, random) {
+  select() {
     throw Error("select not implemented");
   }
 
@@ -63,7 +63,7 @@ export class Genetic {
     return this._stats.totalFitness / this.population.length;
   }
 
-  get averageFitness() {
+  get totalFitness() {
     return this._stats.totalFitness;
   }
 
@@ -142,7 +142,7 @@ export class Genetic {
   }
 
   nextGeneration() {
-    const selected = this.select(this.population, this.fitness, this.random);
+    const selected = this.select();
 
     // best replacement
     // if (best) {
@@ -159,17 +159,17 @@ export class Genetic {
       const r1 = shuffledOrder[i-1];
       const r2 = shuffledOrder[i];
 
-      const children = this.crossover(selected[r1], selected[r2], this.random);
+      const children = this.crossover(selected[r1], selected[r2]);
 
-      this.mutation(children[0], this.random);
-      this.mutation(children[1], this.random);
+      this.mutation(children[0]);
+      this.mutation(children[1]);
 
       newPopulation.push(children[0], children[1]);
     }
 
     this.population = newPopulation;
 
-    if (this.random() < this.probBestReplace(this)) {
+    if (this.random() < this.probBestReplace) {
       const pos = Math.floor(this.random()) * this.population.length;
       this.population[pos] = this._stats.best;
     }
