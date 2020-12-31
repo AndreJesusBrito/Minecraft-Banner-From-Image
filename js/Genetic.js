@@ -15,12 +15,8 @@ export class Genetic {
     this.probBestReplace = probBestReplace;
     this.random = randomGen;
 
-    this._stats = {
-      best: this.population[0],
-      generationBest: null,
-      generationBestFitness: 0,
-      totalFitness: 0,
-    }
+    // init stats
+    this._resetStats();
   }
 
   /**
@@ -81,6 +77,15 @@ export class Genetic {
 
   get generationBestFitness() {
     return this._stats.generationBestFitness;
+  }
+
+  _resetStats() {
+    this._stats = {
+      best: this.population[0],
+      generationBest: null,
+      generationBestFitness: 0,
+      totalFitness: 0,
+    }
   }
 
   _getShuffleIndexes(selected) {
