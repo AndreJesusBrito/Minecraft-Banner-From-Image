@@ -79,12 +79,17 @@ export class Genetic {
     return this._stats.generationBestFitness;
   }
 
+  get generationCount() {
+    return this._stats.generationCount;
+  }
+
   _resetStats() {
     this._stats = {
       best: this.population[0],
       generationBest: null,
       generationBestFitness: 0,
       totalFitness: 0,
+      generationCount: 0,
     }
   }
 
@@ -127,6 +132,7 @@ export class Genetic {
     this._stats.totalFitness = totalFitness;
     this._stats.generationBest = currentBest;
     this._stats.generationBestFitness = generationBestFitness;
+    this._stats.generationCount++;
 
     // update global best if there was an
     // improvement in the current generation
