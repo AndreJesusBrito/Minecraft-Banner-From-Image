@@ -12,7 +12,8 @@ previewCanvas.height = 40;
 
 document.body.append(previewCanvas);
 
-const previewCtx = previewCanvas.getContext("2d");
+const previewCtx = previewCanvas.getContext("2d", { alpha: false });
+window["previewCtx"] = previewCtx;
 
 /**
  * Maps the banners with they canvas
@@ -31,7 +32,7 @@ loadPatterns().then((patterns) => {
     bannerCanvas.width = 20;
     bannerCanvas.height = 40;
 
-    const bannerContext = bannerCanvas.getContext('2d');
+    const bannerContext = bannerCanvas.getContext('2d', { alpha: false });
     document.body.append(bannerCanvas);
 
     initialPopulation.push(banner);
