@@ -1,4 +1,4 @@
-import {Banner} from './Banner.js'
+import {Banner, BannerGenetic} from './Banner.js'
 import {loadPatterns} from './pattern_loader.js'
 import {colors, drawPattern} from './banner_drawing.js'
 
@@ -21,23 +21,11 @@ const previewCtx = previewCanvas.getContext("2d");
 const bannerCanvasContexts = [];
 
 
-
 loadPatterns().then((patterns) => {
+  const initialPopulation = [];
+
   for (let i = 0; i < 100; i++) {
-    const myBanner = new Banner(5, [
-      random(0, 16),
-      random(1, patterns.length - 1),
-      random(0, colors.length - 1),
-
-      random(0, patterns.length - 1),
-      random(0, colors.length - 1),
-
-      random(0, patterns.length - 1),
-      random(0, colors.length - 1),
-
-      random(0, patterns.length - 1),
-      random(0, colors.length - 1),
-    ]);
+    const banner = Banner.newRandom(2, colors.length, patterns.length);
 
     const bannerCanvas = document.createElement("canvas");
     bannerCanvas.width = 20;
@@ -46,11 +34,33 @@ loadPatterns().then((patterns) => {
     const bannerContext = bannerCanvas.getContext('2d');
     document.body.append(bannerCanvas);
 
+    initialPopulation.push(banner);
 
-    myBanner.render(drawPattern, bannerContext, colors, patterns);
+    banner.render(drawPattern, bannerContext, colors, patterns);
 
     bannerCanvasContexts.push(bannerContext);
 
   }
+
+
+  const genetic = new BannerGenetic(
+    colors.length, patterns.length,
+    initialPopulation,
+    () => .5,
+    Math.random
+  );
+
+  window["genetic"] = genetic;
+
+  setInterval(() => {
+    genetic.nextGeneration();
+
+    for (let i = 0; i < bannerCanvasContexts.length; i++) {
+      const banner = genetic.population[i];
+      const bannerContext = bannerCanvasContexts[i];
+      banner.render(drawPattern, bannerContext, colors, patterns);
+    }
+
+  }, 500);
 
 });
