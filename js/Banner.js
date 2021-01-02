@@ -2,6 +2,12 @@ import { Genetic } from "./Genetic.js";
 
 export class Banner {
 
+  /**
+   * @param {number} maxLayers how many pattern layers at maximum
+   * @param {*} totalColors total number of colors
+   * @param {*} totalPatterns total number of patterns
+   * @returns {Banner} returns a random generated banner
+   */
   static newRandom(maxLayers, totalColors, totalPatterns) {
     const patterns = [];
 
@@ -56,14 +62,19 @@ export class Banner {
     this._maxLayers = max;
   }
 
-
-  render(drawPattern, canvasContext, colorMap, patternMap) {
+  /**
+   * @param {function} drawPattern function to draw each pattern
+   * @param {CanvasRenderingContext2D} canvasContext context to draw
+   * @param {string[]} colors array with the colors codes
+   * @param {HTMLImageElement[]} patterns array with the pattern images
+   */
+  render(drawPattern, canvasContext, colors, patterns) {
 
     // render base
     drawPattern(
-      // patternMap.base,
-      patternMap[0],
-      colorMap[this.patterns[0]],
+      // patterns.base,
+      patterns[0],
+      colors[this.patterns[0]],
       canvasContext
     );
 
@@ -76,8 +87,8 @@ export class Banner {
       }
 
       drawPattern(
-        patternMap[this.patterns[i]],
-        colorMap[this.patterns[i + 1]],
+        patterns[this.patterns[i]],
+        colors[this.patterns[i + 1]],
         canvasContext
       );
     }
