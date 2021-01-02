@@ -101,6 +101,12 @@ export class BannerGenetic extends Genetic {
     super(population, probBestReplace, randomGen);
     this.totalColors = totalColors;
     this.totalPatterns = totalPatterns;
+
+    /**
+     * @type {WeakMap<Banner, CanvasRenderingContext2D>}
+     */
+    this.contexts = new WeakMap();
+
   }
 
   /**

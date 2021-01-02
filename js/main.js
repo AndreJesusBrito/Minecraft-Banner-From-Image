@@ -51,14 +51,29 @@ loadPatterns().then((patterns) => {
     Math.random
   );
 
+
+  // set initial population canvas contexts
+  for (let i = 0; i < bannerCanvasContexts.length; i++) {
+    const banner = genetic.population[i];
+    const context = bannerCanvasContexts[i];
+    genetic.contexts.set(banner, context);
+  }
+
   window["genetic"] = genetic;
 
   setInterval(() => {
     genetic.nextGeneration();
 
+    // pass the contexts to the new generation
     for (let i = 0; i < bannerCanvasContexts.length; i++) {
       const banner = genetic.population[i];
-      const bannerContext = bannerCanvasContexts[i];
+      const context = bannerCanvasContexts[i];
+      genetic.contexts.set(banner, context);
+    }
+
+    // TEMP render all banners
+    for (const banner of genetic.population) {
+      const bannerContext = genetic.contexts.get(banner);
       banner.render(drawPattern, bannerContext, colors, patterns);
     }
 
