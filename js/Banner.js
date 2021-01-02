@@ -17,7 +17,7 @@ export class Banner {
       patterns[i] = Math.floor(Math.random() * totalPatterns);
     }
 
-    return new Banner(5, patterns);
+    return new Banner(maxLayers, patterns);
   }
 
   /**
