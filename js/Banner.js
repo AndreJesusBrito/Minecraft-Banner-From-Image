@@ -113,7 +113,7 @@ export class BannerGenetic extends Genetic {
    * @override
    */
   select() {
-    const roullete = this.population.map(this.fitness);
+    const roullete = this.population.map(this.fitness.bind(this));
     const totalFitness = roullete.reduce((a,b) => a + b);
 
     const selection = [];
@@ -139,9 +139,22 @@ export class BannerGenetic extends Genetic {
 
   /**
    * @override
+   * @inheritdoc
    */
   fitness(individual) {
-    return Math.random();
+    let error = 0;
+
+    const context = this.contexts.get(individual);
+    const data = context.getImageData(0,0, context.canvas.width, context.canvas.height).data;
+
+    for (let i = 0; i < data.length; i += 4) {
+      error += (255 - data[i])**2;
+
+      error += data[i+1]**2;
+      error += data[i+2]**2;
+    }
+
+    return 1/error;
   }
 
 
