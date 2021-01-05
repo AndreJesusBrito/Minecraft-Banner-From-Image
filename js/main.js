@@ -25,8 +25,16 @@ const bannerCanvasContexts = [];
 loadPatterns().then((patterns) => {
   const initialPopulation = [];
 
+  const maxLayers = 1;
+
+  // setup objective reference image
+  const referenceBanner = Banner.newRandom(maxLayers, colors.length, patterns.length);
+  referenceBanner.render(drawPattern, previewCtx, colors, patterns);
+  const referenceData = previewCtx.getImageData(0,0,previewCtx.canvas.width, previewCtx.canvas.height);
+
+
   for (let i = 0; i < 100; i++) {
-    const banner = Banner.newRandom(2, colors.length, patterns.length);
+    const banner = Banner.newRandom(maxLayers, colors.length, patterns.length);
 
     const bannerCanvas = document.createElement("canvas");
     bannerCanvas.width = 20;
@@ -50,6 +58,9 @@ loadPatterns().then((patterns) => {
     () => .5,
     Math.random
   );
+
+  // set objective reference data
+  genetic.referenceData = referenceData;
 
 
   // set initial population canvas contexts

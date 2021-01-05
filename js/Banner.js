@@ -118,6 +118,11 @@ export class BannerGenetic extends Genetic {
      */
     this.contexts = new WeakMap();
 
+    /**
+     * Objective banner data to compute fitness
+     * @type {ImageData}
+     */
+    this.referenceData = null;
   }
 
   /**
@@ -156,13 +161,15 @@ export class BannerGenetic extends Genetic {
     let error = 0;
 
     const context = this.contexts.get(individual);
-    const data = context.getImageData(0,0, context.canvas.width, context.canvas.height).data;
+    const referenceData = this.referenceData.data;
+    const imageData = context.getImageData(0,0, context.canvas.width, context.canvas.height);
+    const data = imageData.data;
 
+    // get color error
     for (let i = 0; i < data.length; i += 4) {
-      error += (255 - data[i])**2;
-
-      error += data[i+1]**2;
-      error += data[i+2]**2;
+      error += (referenceData[i]   - data[i]  )**2;
+      error += (referenceData[i+1] - data[i+1])**2;
+      error += (referenceData[i+2] - data[i+2])**2;
     }
 
     return 1/error;
