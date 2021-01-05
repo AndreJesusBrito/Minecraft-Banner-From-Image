@@ -83,7 +83,7 @@ export class Banner {
 
       // stop if no more layers to paint
       if (this.patterns[i] === 0) {
-        break;
+        continue;
       }
 
       drawPattern(
