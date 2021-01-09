@@ -8,19 +8,19 @@ export class Banner {
    * @param {*} totalPatterns total number of patterns
    * @returns {Banner} returns a random generated banner
    */
-  static newRandom(maxLayers, totalColors, totalPatterns) {
+  static newRandom(maxLayers, totalColors, totalPatterns, random = Math.random) {
     const patterns = [];
 
     const size = maxLayers * 2 + 1;
 
     // choose random colors
     for (let i = 0; i < size; i += 2) {
-      patterns[i] = Math.floor(Math.random() * (totalColors));
+      patterns[i] = Math.floor(random() * (totalColors));
     }
 
     // choose random patterns
     for (let i = 1; i < size; i += 2) {
-      patterns[i] = Math.floor(Math.random() * totalPatterns);
+      patterns[i] = Math.floor(random() * totalPatterns);
     }
 
     return new Banner(maxLayers, patterns);
