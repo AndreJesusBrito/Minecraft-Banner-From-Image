@@ -85,7 +85,8 @@ export class Genetic {
 
   _resetStats() {
     this._stats = {
-      best: this.population[0],
+      best: this.population[0],      // TODO take the best
+      currentBestFitness: -Infinity, // TODO ^
       generationBest: null,
       generationBestFitness: 0,
       totalFitness: 0,
@@ -112,17 +113,15 @@ export class Genetic {
   _updateStats() {
     let totalFitness = 0;
     let currentBest;
-    let currentBestFitness = -Infinity;
-    let generationBestFitness;
+    let generationBestFitness = -Infinity;
 
     for (const individual of this.population) {
       const individualFitness = this.fitness(individual);
 
       // update generation best
-      if (individualFitness > currentBestFitness) {
+      if (individualFitness > generationBestFitness) {
         currentBest = individual;
 
-        currentBestFitness = individualFitness;
         generationBestFitness = individualFitness;
       }
 
@@ -136,8 +135,9 @@ export class Genetic {
 
     // update global best if there was an
     // improvement in the current generation
-    if (currentBestFitness > this.fitness(this._stats.best)) {
+    if (generationBestFitness > this._stats.currentBestFitness) {
       this._stats.best = currentBest;
+      this._stats.currentBestFitness = generationBestFitness;
     }
   }
 
@@ -171,7 +171,7 @@ export class Genetic {
 
     if (this.random() < this.probBestReplace) {
       const pos = Math.floor(this.random()) * this.population.length;
-      this.population[pos] = this._stats.best;
+      this.population[pos] = this.best;
     }
 
   }
