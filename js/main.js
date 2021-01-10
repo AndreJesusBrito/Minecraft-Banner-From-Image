@@ -1,6 +1,7 @@
 import {Banner, BannerGenetic} from './Banner.js'
 import {loadPatterns} from './pattern_loader.js'
 import {colors, drawPattern} from './banner_drawing.js'
+import {LCG_random_factory} from './util.js'
 
 
 /**
@@ -22,19 +23,23 @@ window["previewCtx"] = previewCtx;
 const bannerCanvasContexts = [];
 
 
+const random_seed = Math.floor(Math.random() * 124717);
+console.log("The random seed is ", random_seed);
+const random = LCG_random_factory(random_seed);
+
 loadPatterns().then((patterns) => {
   const initialPopulation = [];
 
   const maxLayers = 1;
 
   // setup objective reference image
-  const referenceBanner = Banner.newRandom(maxLayers, colors.length, patterns.length);
+  const referenceBanner = Banner.newRandom(maxLayers, colors.length, patterns.length, random);
   referenceBanner.render(drawPattern, previewCtx, colors, patterns);
   const referenceData = previewCtx.getImageData(0,0,previewCtx.canvas.width, previewCtx.canvas.height);
 
 
   for (let i = 0; i < 100; i++) {
-    const banner = Banner.newRandom(maxLayers, colors.length, patterns.length);
+    const banner = Banner.newRandom(maxLayers, colors.length, patterns.length, random);
 
     const bannerCanvas = document.createElement("canvas");
     bannerCanvas.width = 20;
@@ -56,7 +61,7 @@ loadPatterns().then((patterns) => {
     colors.length, patterns.length,
     initialPopulation,
     () => .5,
-    Math.random
+    random
   );
 
   // set objective reference data
