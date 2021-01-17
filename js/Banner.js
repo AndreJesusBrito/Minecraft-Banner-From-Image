@@ -1,6 +1,5 @@
-import { Genetic } from "./Genetic.js";
 
-export class Banner {
+class Banner {
 
   /**
    * @param {number} maxLayers how many pattern layers at maximum
@@ -106,7 +105,7 @@ export class Banner {
  * @extends Genetic<Banner>
  * @inheritdoc
  */
-export class BannerGenetic extends Genetic {
+class BannerGenetic extends Genetic {
 
   constructor(totalColors, totalPatterns, population, probBestReplace, randomGen) {
     super(population, probBestReplace, randomGen);

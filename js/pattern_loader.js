@@ -1,4 +1,4 @@
-export const patternMap = {
+const patternMap = {
   "base": null,
   "border": null,
   "bricks": null,
@@ -43,7 +43,7 @@ export const patternMap = {
 };
 
 
-export async function loadPatterns() {
+async function loadPatterns() {
   return new Promise(function (resolve) {
     const names = Object.getOwnPropertyNames(patternMap);
 

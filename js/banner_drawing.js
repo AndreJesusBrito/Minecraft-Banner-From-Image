@@ -3,7 +3,7 @@
  * taken from https://colorswall.com/palette/3847/
  * @type {string[]}
  */
-export const colors = [
+const colors = [
   "#f9ffff",
   "#9c9d97",
   "#474f52",
@@ -27,7 +27,7 @@ export const colors = [
  * @param {string} color
  * @param {CanvasRenderingContext2D} canvasCtx
  */
-export function drawPattern(image, color, canvasCtx) {
+function drawPattern(image, color, canvasCtx) {
   const colorCanvas = document.createElement("canvas");
   const colorCanvasCtx = colorCanvas.getContext('2d');
   colorCanvas.width = canvasCtx.canvas.width;

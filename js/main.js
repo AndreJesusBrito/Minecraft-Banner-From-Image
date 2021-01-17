@@ -1,7 +1,3 @@
-import {Banner, BannerGenetic} from './Banner.js'
-import {loadPatterns} from './pattern_loader.js'
-import {colors, drawPattern} from './banner_drawing.js'
-import {LCG_random_factory} from './util.js'
 
 
 /**

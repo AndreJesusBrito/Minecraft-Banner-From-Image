@@ -3,7 +3,7 @@
  * @abstract
  * @template T
  */
-export class Genetic {
+class Genetic {
 
   /**
    * @param {T[]} population array with initial population
