@@ -3,6 +3,7 @@ importScripts(
   'Genetic.js',
   'banner_drawing.js',
   'Banner.js',
+  'Banner_Genetic.js',
 );
 
 // control variable if the genetic algorithm is running
