@@ -27,35 +27,29 @@ const colors = [
  * @param {string} color
  * @param {CanvasRenderingContext2D} canvasCtx
  */
-function drawPattern(image, color, canvasCtx) {
-  const colorCanvas = document.createElement("canvas");
-  const colorCanvasCtx = colorCanvas.getContext('2d');
-  colorCanvas.width = canvasCtx.canvas.width;
-  colorCanvas.height = canvasCtx.canvas.height;
-
+function drawPattern(image, color, canvasCtx, colorCanvasCtx, maskCanvasCtx) {
+  // clear canvas old data from other patterns
+  maskCanvasCtx.globalCompositeOperation = "source-over";
+  maskCanvasCtx.clearRect(0, 0, maskCanvasCtx.canvas.width, maskCanvasCtx.canvas.height);
+  colorCanvasCtx.globalCompositeOperation = "source-over";
 
   // fill with the color
   colorCanvasCtx.fillStyle = color;
-  colorCanvasCtx.fillRect(0,0, colorCanvas.width, colorCanvas.height);
+  colorCanvasCtx.fillRect(0,0, colorCanvasCtx.canvas.width, colorCanvasCtx.canvas.height);
 
   // blend the pattern with the color
   colorCanvasCtx.globalCompositeOperation = "multiply";
   colorCanvasCtx.drawImage(image, 1,1,21,41, 0,0,21,41);
-
-  const maskCanvas = document.createElement("canvas");
-  const maskCanvasCtx = maskCanvas.getContext('2d');
-  maskCanvas.width = canvasCtx.canvas.width;
-  maskCanvas.height = canvasCtx.canvas.height;
 
   // draw pattern mask
   maskCanvasCtx.drawImage(image, 1,1,21,41, 0,0,21,41);
 
   // draw blenden pattern in the mask
   maskCanvasCtx.globalCompositeOperation = "source-in";
-  maskCanvasCtx.drawImage(colorCanvas, 0,0);
+  maskCanvasCtx.drawImage(colorCanvasCtx.canvas, 0,0);
 
   // canvasCtx.globalCompositeOperation = "darken";
-  canvasCtx.drawImage(maskCanvas, 0,0);
+  canvasCtx.drawImage(maskCanvasCtx.canvas, 0,0);
 
   // restore default composite operation
   canvasCtx.globalCompositeOperation = "source-over";

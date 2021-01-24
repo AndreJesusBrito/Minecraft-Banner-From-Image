@@ -63,18 +63,20 @@ class Banner {
 
   /**
    * @param {function} drawPattern function to draw each pattern
-   * @param {CanvasRenderingContext2D} canvasContext context to draw
+   * @param {OffscreenCanvasRenderingContext2D} canvasContext context to draw
    * @param {string[]} colors array with the colors codes
-   * @param {HTMLImageElement[]} patterns array with the pattern images
+   * @param {ImageBitmap[]} patterns array with the pattern images
    */
-  render(drawPattern, canvasContext, colors, patterns) {
+  render(drawPattern, canvasContext, colors, patterns, colorCanvasCtx, maskCanvasCtx) {
 
     // render base
     drawPattern(
       // patterns.base,
       patterns[0],
       colors[this.patterns[0]],
-      canvasContext
+      canvasContext,
+      colorCanvasCtx,
+      maskCanvasCtx
     );
 
     // paint pattern layers
@@ -88,7 +90,9 @@ class Banner {
       drawPattern(
         patterns[this.patterns[i]],
         colors[this.patterns[i + 1]],
-        canvasContext
+        canvasContext,
+        colorCanvasCtx,
+        maskCanvasCtx
       );
     }
 
@@ -113,7 +117,7 @@ class BannerGenetic extends Genetic {
     this.totalPatterns = totalPatterns;
 
     /**
-     * @type {WeakMap<Banner, CanvasRenderingContext2D>}
+     * @type {WeakMap<Banner, OffscreenCanvasRenderingContext2D>}
      */
     this.contexts = new WeakMap();
 

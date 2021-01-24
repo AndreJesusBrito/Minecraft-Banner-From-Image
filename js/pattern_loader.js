@@ -75,5 +75,7 @@ async function loadPatterns() {
       }
     }, 10);
 
+  }).then(patternImages => {
+    return Promise.all(patternImages.map(p => createImageBitmap(p,0,0,21,41)));
   });
 }
