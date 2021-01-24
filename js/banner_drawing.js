@@ -1,25 +1,24 @@
 
 /**
- * taken from https://colorswall.com/palette/3847/
  * @type {string[]}
  */
 const colors = [
-  "#f9ffff",
-  "#9c9d97",
-  "#474f52",
-  "#1d1c21",
-  "#ffd83d",
-  "#f9801d",
-  "#b02e26",
-  "#825432",
-  "#80c71f",
-  "#5d7c15",
-  "#3ab3da",
-  "#169c9d",
-  "#3c44a9",
-  "#f38caa",
-  "#c64fbd",
-  "#8932b7",
+  "#fcfcfc", // white
+  "#fc8f20", // orange
+  "#de57d3", // magenta
+  "#41c8f3", // light blue
+  "#fcf144", // yellow
+  "#8fde23", // lime
+  "#fc9bbe", // pink
+  "#4f585c", // gray
+  "#afafa9", // light gray
+  "#19aeae", // cyan
+  "#9938cd", // purple
+  "#434cbe", // blue
+  "#925e38", // brown
+  "#698a19", // green
+  "#c5332a", // red
+  "#202025", // black
 ];
 
 /**
