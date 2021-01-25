@@ -113,6 +113,8 @@ function start() {
     random
   );
 
+  genetic.tolerance = 100;
+
   // set objective reference data
   genetic.referenceData = referenceData;
 
@@ -131,11 +133,9 @@ function start() {
 function resume() {
   running = true;
 
-  let i = 50;
-
   let best = genetic.best;
 
-  while (i >= 0 && running) {
+  while (genetic.toleranceCount < genetic.tolerance && running ) {
     genetic.nextGeneration();
 
     // pass the contexts to the new generation
@@ -152,6 +152,8 @@ function resume() {
     }
 
     console.log(1/genetic.generationBestFitness);
+    genetic.toleranceCount++;
+
 
     if (genetic.best !== best) {
       best = genetic.best;
@@ -159,8 +161,6 @@ function resume() {
       console.log("new best event goes here");
     }
 
-
-    i--;
   }
 }
 

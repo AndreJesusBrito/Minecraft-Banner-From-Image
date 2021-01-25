@@ -17,6 +17,16 @@ class Genetic {
 
     // init stats
     this._resetStats();
+
+    /**
+     * @type {number}
+     */
+    this.tolerance = null;
+
+    /**
+     * @type {number}
+     */
+    this.toleranceCount = 0;
   }
 
   /**
@@ -138,6 +148,7 @@ class Genetic {
     if (generationBestFitness > this._stats.currentBestFitness) {
       this._stats.best = currentBest;
       this._stats.currentBestFitness = generationBestFitness;
+      this.toleranceCount = 0;
     }
   }
 
