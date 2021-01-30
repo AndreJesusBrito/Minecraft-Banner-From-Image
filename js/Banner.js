@@ -62,6 +62,13 @@ class Banner {
   }
 
   /**
+   * @returns {Banner} the banner clone
+   */
+  clone() {
+    return new Banner(this._maxLayers, [...this.patterns]);
+  }
+
+  /**
    * @param {function} drawPattern function to draw each pattern
    * @param {OffscreenCanvasRenderingContext2D} canvasContext context to draw
    * @param {string[]} colors array with the colors codes

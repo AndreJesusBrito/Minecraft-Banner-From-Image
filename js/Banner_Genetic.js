@@ -29,7 +29,7 @@ class BannerGenetic extends Genetic {
     const roullete = this.population.map(this.fitness.bind(this));
     const totalFitness = roullete.reduce((a,b) => a + b);
 
-    const selection = [];
+    const selection = new Set();
     const k = 1 / this.population.length;
     const globalPointer = this.random() * totalFitness;
 
@@ -43,10 +43,20 @@ class BannerGenetic extends Genetic {
 
       if (currentPos === 0) currentPos = 1;
 
-      selection.push(this.population[currentPos-1]);
+      /**
+       * @type {Banner}
+       */
+      const selectedBanner = this.population[currentPos-1];
+      selection.add(selectedBanner);
+
+      // if duplicate, clone banner
+      if (selection.size === i) {
+        selection.add(selectedBanner.clone());
+      }
+
     }
 
-    return selection;
+    return [...selection];
   };
 
 
