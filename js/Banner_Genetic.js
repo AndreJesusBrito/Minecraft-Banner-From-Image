@@ -77,6 +77,14 @@ class BannerGenetic extends Genetic {
       error += (referenceData[i]   - data[i]  )**2;
       error += (referenceData[i+1] - data[i+1])**2;
       error += (referenceData[i+2] - data[i+2])**2;
+
+      const referenceMax = Math.max(referenceData[i], referenceData[i+1], referenceData[i+2]);
+      const referenceMin = Math.min(referenceData[i], referenceData[i+1], referenceData[i+2]);
+
+      const dataMax = Math.max(data[i], data[i+1], data[i+2]);
+      const dataMin = Math.min(data[i], data[i+1], data[i+2]);
+
+      error += (Math.abs(referenceMax - referenceMin) - Math.abs(dataMax - dataMin))**2;
     }
 
     return 1/error;
