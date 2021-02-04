@@ -167,7 +167,11 @@ function resume() {
     if (genetic.best !== best) {
       best = genetic.best;
       best.render(drawPattern, previewCtx, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
-      console.log("new best event goes here");
+
+      console.log("new best found");
+
+      // if the global solution is found then stop
+      if (genetic.generationBestFitness === Infinity) break;
     }
 
   }
