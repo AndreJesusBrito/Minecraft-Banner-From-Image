@@ -4,8 +4,18 @@ body {
   image-rendering: pixelated;
   width: 80%;
   margin: 40px auto;
+  color: #fff;
 }
 
 canvas {
   width: 10rem;
+}
+
+#options {
+  display: flex;
+  flex-direction: column;
+}
+
+input[type=number] {
+  width: 4em;
 }

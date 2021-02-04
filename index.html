@@ -8,8 +8,22 @@
 </head>
 <body>
     <div>
-        <h1>WIP - not ready for use</h1>
+        <h1>Minecraft Banner From Image</h1>
         <div id="previewSection"></div>
+    </div>
+
+
+    <button disabled id="startBtn">Start</button>
+
+    <div id="options">
+        <label for="toleranceInput">Tolerance: </label>
+        <input name="toleranceInput" id="toleranceInput" required type="number" value="250" step="1" min="1">
+
+        <label for="populationSizeInput">Population Size: </label>
+        <input name="populationSizeInput" id="populationSizeInput" required type="number" value="100" step="2" min="4">
+
+        <label for="maxLayersInput">Max Layers: </label>
+        <input name="maxLayersInput" id="maxLayersInput" required type="number" value="1" step="1" min="0" max="16">
     </div>
 
     <script src="js/pattern_loader.js"></script>

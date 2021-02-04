@@ -58,7 +58,9 @@ let genetic = null;
 
 
 
-let maxLayers = 2;
+let maxLayers;
+let tolerance;
+let populationSize;
 
 
 
@@ -69,6 +71,11 @@ let referenceBanner = null;
 
 
 function init(data) {
+  maxLayers = data.maxLayers;
+  tolerance = data.tolerance;
+  populationSize = data.populationSize;
+
+
   referenceCtx = data.referenceCanvas.getContext('2d', { alpha: true });
   previewCtx = data.previewCanvas.getContext('2d', { alpha: true });
 
@@ -93,7 +100,7 @@ function init(data) {
 
 function getRandomPopulation() {
   const initialPopulation = [];
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < populationSize; i++) {
     const banner = Banner.newRandom(maxLayers, colors.length, patterns.length, random);
 
     initialPopulation.push(banner);
@@ -117,7 +124,7 @@ function start() {
     random
   );
 
-  genetic.tolerance = 100;
+  genetic.tolerance = tolerance;
 
   // set objective reference data
   genetic.referenceData = referenceData;
@@ -192,7 +199,7 @@ onmessage = function(e) {
       break;
     case 'start':
       const banners = getRandomPopulation();
-      for (let i = 0; i < 100; i++) {
+      for (let i = 0; i < populationSize; i++) {
         const banner = banners[i];
         banner.render(drawPattern, bannerCanvasContexts[i], colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
       }
