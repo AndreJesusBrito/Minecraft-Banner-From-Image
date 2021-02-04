@@ -139,6 +139,9 @@ function resume() {
 
   let best = genetic.best;
 
+  const bestsFitness = [];
+  const averageFitness = [];
+
   while (genetic.toleranceCount < genetic.tolerance && running ) {
     genetic.nextGeneration();
 
@@ -155,7 +158,9 @@ function resume() {
       banner.render(drawPattern, bannerContext, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
     }
 
-    console.log(1/genetic.generationBestFitness);
+    bestsFitness.push(1/Math.sqrt(genetic.generationBestFitness));
+    averageFitness.push(1/Math.sqrt(genetic.averageFitness));
+
     genetic.toleranceCount++;
 
 
@@ -166,6 +171,11 @@ function resume() {
     }
 
   }
+
+  console.log("done");
+  console.table(bestsFitness);
+  console.table(averageFitness);
+
 }
 
 
