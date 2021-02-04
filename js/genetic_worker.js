@@ -82,7 +82,13 @@ function init(data) {
     bannerCanvasContexts.push(canvas.getContext('2d', { alpha: true }));
   }
 
+  referenceBanner = Banner.newRandom(maxLayers, colors.length, patterns.length, random)
+  referenceBanner.render(drawPattern, referenceCtx, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
+
+  // TEMP add some delay to draw the reference banner
+  setTimeout(() => {
   postMessage('ready');
+  }, 0);
 }
 
 function getRandomPopulation() {
@@ -98,8 +104,6 @@ function getRandomPopulation() {
 }
 
 function start() {
-  referenceBanner = Banner.newRandom(maxLayers, colors.length, patterns.length, random)
-  referenceBanner.render(drawPattern, referenceCtx, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
   const referenceData = referenceCtx.getImageData(0,0,referenceCtx.canvas.width, referenceCtx.canvas.height);
 
   done = false;
