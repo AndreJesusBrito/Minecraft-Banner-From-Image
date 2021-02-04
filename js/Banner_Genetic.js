@@ -121,19 +121,39 @@ class BannerGenetic extends Genetic {
    * @param {Banner} individual
    */
   mutation(individual) {
-    if (this.random() < 0.2) {
-      const bannerPatterns = individual.patterns;
+    const bannerPatterns = individual.patterns;
 
-      // choose a random gene to mutate
-      const pos = Math.floor(this.random() * bannerPatterns.length);
+    // random pattern/color mutation
+    for (let i = 0; i < bannerPatterns.length; i++) {
+      if (this.random() < 0.15) {
 
-      // if pos is even then is a color
-      // if is odd then is a pattern or layer termination
-      const range = pos % 2 === 0 ? this.totalColors : this.totalPatterns;
+        // if pos is even then is a color
+        // if is odd then is a pattern or layer termination
+        const range = i % 2 === 0 ? this.totalColors : this.totalPatterns;
 
-      // mutate at pos
-      bannerPatterns[pos] = Math.floor(range * this.random());
+        // mutate at pos i
+        bannerPatterns[i] = Math.floor(range * this.random());
+      }
     }
+
+    // layer exchange mutation
+    for (let i = 1; i < bannerPatterns.length - 2; i += 2) {
+      if (this.random() < 0.05) {
+
+        const direction = 4 * Math.round(this.random() + 0.05) - 2;
+
+        if (i + direction >= 0) {
+          const temp = bannerPatterns[i];
+          bannerPatterns[i] = bannerPatterns[i + direction];
+
+          bannerPatterns[i + direction] = temp;
+        }
+        const temp = bannerPatterns[i + 1];
+        bannerPatterns[i + 1] = bannerPatterns[i + direction + 1];
+        bannerPatterns[i + direction + 1] = temp;
+      }
+    }
+
   };
 
 }
