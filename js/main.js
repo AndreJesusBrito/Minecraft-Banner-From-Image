@@ -1,3 +1,7 @@
+
+const bestCounter = document.getElementById('bestCounter');
+const generationCounter = document.getElementById('generationCounter');
+
 /**
  * @type {HTMLInputElement}
  */
@@ -86,8 +90,16 @@ geneticWorker.onmessage = function(e) {
       geneticWorker.postMessage({message: 'start'});
       break;
 
+    case 'nextGen':
+      // increment generation counter
+      generationCounter.innerText = (Number(generationCounter.innerText) + 1).toString();
+      break;
+
     case 'new_best':
       const banner = new Banner(Number(maxLayersInput.value), e.data.patterns);
+
+      // increment bests found
+      bestCounter.innerText = (Number(bestCounter.innerText) + 1).toString();
 
       // draw evolution mini banner
       const canvas = createBannerCanvas();

@@ -143,6 +143,9 @@ async function resume() {
   const bestsFitness = [];
   const averageFitness = [];
 
+  // messate to be sent for each generation.
+  const nextGenMessage = {'message': 'nextGen'};
+
   while (genetic.toleranceCount < genetic.tolerance && running ) {
     genetic.nextGeneration();
 
@@ -176,6 +179,7 @@ async function resume() {
       if (genetic.generationBestFitness === Infinity) break;
     }
 
+    postMessage(nextGenMessage);
   }
 
   console.log("done");

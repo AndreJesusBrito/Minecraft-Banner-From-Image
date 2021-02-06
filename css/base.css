@@ -31,6 +31,9 @@ canvas {
   flex-direction: column;
   width: 150px;
 }
+#mainSection > div:nth-child(2) > div {
+  margin-top: 1.7rem;
+}
 #mainSection h3 {
   margin: 0;
 }
