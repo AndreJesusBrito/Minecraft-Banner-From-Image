@@ -7,29 +7,46 @@
     <title>Minecraft Banner From Image</title>
 </head>
 <body>
-    <div>
-        <h1>Minecraft Banner From Image</h1>
-        <div id="previewSection"></div>
-    </div>
+    <h1>Minecraft Banner From Image</h1>
 
 
-    <button disabled id="startBtn">Start</button>
+    <section id="options">
+        <div>
+            <label for="toleranceInput">Tolerance: </label>
+            <input name="toleranceInput" id="toleranceInput" required type="number" value="250" step="1" min="1">
+        </div>
 
-    <div id="options">
-        <label for="toleranceInput">Tolerance: </label>
-        <input name="toleranceInput" id="toleranceInput" required type="number" value="250" step="1" min="1">
+        <div>
+            <label for="populatio2nSizeInput">Population Size: </label>
+            <input name="populationSizeInput" id="populationSizeInput" required type="number" value="100" step="2" min="4">
+        </div>
 
-        <label for="populationSizeInput">Population Size: </label>
-        <input name="populationSizeInput" id="populationSizeInput" required type="number" value="100" step="2" min="4">
+        <div>
+            <label for="maxLayersInput">Max Layers: </label>
+            <input name="maxLayersInput" id="maxLayersInput" required type="number" value="1" step="1" min="0" max="16">
+        </div>
+    </section>
 
-        <label for="maxLayersInput">Max Layers: </label>
-        <input name="maxLayersInput" id="maxLayersInput" required type="number" value="1" step="1" min="0" max="16">
-    </div>
+    <section id="mainSection">
+        <div>
+            <h3>Reference</h3>
+            <canvas id="referenceCanvas" width="20" height="40"></canvas>
+        </div>
 
+        <div>
+            <button disabled id="startBtn">Start &rarr;</button>
+        </div>
 
-    <div id="bestSection">
+        <div>
+            <h3>Current Best</h3>
+            <canvas id="previewCanvas" width="20" height="40"></canvas>
+        </div>
+
+    </section>
+
+    <section id="bestSection">
         <h3>Bests evolution</h3>
-    </div>
+    </section>
 
 
     <script src="js/pattern_loader.js"></script>

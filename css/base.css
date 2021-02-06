@@ -9,11 +9,30 @@ body {
 
 canvas {
   width: 10rem;
+  background: #000;
 }
 
 #options {
   display: flex;
+}
+
+#options > div {
+  margin-right: 3rem;
+}
+
+#mainSection {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+#mainSection > div:nth-child(2) {
+  margin: 1em;
+  display: flex;
   flex-direction: column;
+  width: 150px;
+}
+#mainSection h3 {
+  margin: 0;
 }
 
 input[type=number] {

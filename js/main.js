@@ -31,15 +31,13 @@ function createBannerCanvas() {
 /**
  * @type {HTMLCanvasElement}
  */
-const referenceCanvas = createBannerCanvas();
-document.body.append(referenceCanvas);
+const referenceCanvas = document.getElementById('referenceCanvas');
 const referenceOffscreenCanvas = referenceCanvas.transferControlToOffscreen();
 
 /**
  * @type {HTMLCanvasElement}
  */
-const previewCanvas = createBannerCanvas();
-document.body.append(previewCanvas);
+const previewCanvas = document.getElementById('previewCanvas')
 const previewCtx = previewCanvas.getContext('2d');
 
 
@@ -127,7 +125,7 @@ loadPatterns().then((patterns) => {
     const populationOffsetCanvas = [];
     for (let i = 0; i < Number(populationSizeInput.value); i++) {
       const bannerCanvas = createBannerCanvas();
-      document.body.append(bannerCanvas);
+      // document.body.append(bannerCanvas);
       populationOffsetCanvas.push(bannerCanvas.transferControlToOffscreen());
     }
 
