@@ -40,7 +40,7 @@ const referenceOffscreenCanvas = referenceCanvas.transferControlToOffscreen();
  */
 const previewCanvas = createBannerCanvas();
 document.body.append(previewCanvas);
-const previewOffscreenCanvas = previewCanvas.transferControlToOffscreen();
+const previewCtx = previewCanvas.getContext('2d');
 
 
 
@@ -91,10 +91,14 @@ geneticWorker.onmessage = function(e) {
     case 'new_best':
       const banner = new Banner(Number(maxLayersInput.value), e.data.patterns);
 
+      // draw evolution mini banner
       const canvas = createBannerCanvas();
       const ctx = canvas.getContext('2d');
       banner.render(drawPattern, ctx, colors, patternsData, colorCanvasCtxMain, maskCanvasCtxMain);
       bestsSection.append(canvas);
+
+      // render in best preview canvas
+      banner.render(drawPattern, previewCtx, colors, patternsData, colorCanvasCtxMain, maskCanvasCtxMain);
       break;
   }
 }
@@ -135,14 +139,12 @@ loadPatterns().then((patterns) => {
       maxLayers: Number(maxLayersInput.value),
 
       referenceCanvas: referenceOffscreenCanvas,
-      previewCanvas: previewOffscreenCanvas,
       populationCanvas: populationOffsetCanvas,
       colorOffscreenCanvas,
       maskOffscreenCanvas,
       patterns: patterns,
     }, [
       referenceOffscreenCanvas,
-      previewOffscreenCanvas,
       colorOffscreenCanvas,
       maskOffscreenCanvas,
       ...populationOffsetCanvas,

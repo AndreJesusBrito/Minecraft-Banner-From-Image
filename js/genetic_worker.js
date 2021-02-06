@@ -18,10 +18,6 @@ console.log("The random seed is ", random_seed);
 const random = LCG_random_factory(random_seed);
 
 
-/**
- * @type {OffscreenCanvasRenderingContext2D}
- */
-let previewCtx = null;
 
 /**
  * @type {OffscreenCanvasRenderingContext2D}
@@ -76,7 +72,6 @@ function init(data) {
 
 
   referenceCtx = data.referenceCanvas.getContext('2d', { alpha: true });
-  previewCtx = data.previewCanvas.getContext('2d', { alpha: true });
 
   // banner render helper canvas
   colorOffscreenCtx = data.colorOffscreenCanvas.getContext('2d');
@@ -172,7 +167,6 @@ async function resume() {
 
     if (genetic.best !== best) {
       best = genetic.best;
-      best.render(drawPattern, previewCtx, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
 
       console.log("new best found");
 
