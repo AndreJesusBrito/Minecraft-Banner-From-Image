@@ -13,7 +13,6 @@ let running = false;
 let done = false;
 
 
-// const random_seed = 88799;
 const random_seed = Math.floor(Math.random() * 124717);
 console.log("The random seed is ", random_seed);
 const random = LCG_random_factory(random_seed);
@@ -94,7 +93,7 @@ function init(data) {
 
   // TEMP add some delay to draw the reference banner
   setTimeout(() => {
-  postMessage('ready');
+  postMessage({message: 'ready'});
   }, 0);
 }
 
@@ -141,7 +140,7 @@ function start() {
 }
 
 
-function resume() {
+async function resume() {
   running = true;
 
   let best = genetic.best;
@@ -176,6 +175,8 @@ function resume() {
       best.render(drawPattern, previewCtx, colors, patterns, colorOffscreenCtx, maskOffscreenCtx);
 
       console.log("new best found");
+
+      postMessage({message: 'new_best', patterns: genetic.best.patterns});
 
       // if the global solution is found then stop
       if (genetic.generationBestFitness === Infinity) break;

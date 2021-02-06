@@ -18,6 +18,8 @@ const populationSizeInput = document.getElementById('populationSizeInput');
  */
 const maxLayersInput = document.getElementById('maxLayersInput');
 
+const bestsSection = document.getElementById('bestSection');
+
 function createBannerCanvas() {
   const canvas = document.createElement("canvas");
   canvas.width = 20;
@@ -46,29 +48,65 @@ const previewOffscreenCanvas = previewCanvas.transferControlToOffscreen();
  * banner render helper canvas
  * @type {HTMLCanvasElement}
  */
-const colorCanvasCtx = createBannerCanvas();
-const colorOffscreenCanvas = colorCanvasCtx.transferControlToOffscreen();
+const colorCanvas = createBannerCanvas();
+const colorOffscreenCanvas = colorCanvas.transferControlToOffscreen();
 
 /**
  * banner render helper canvas
  * @type {HTMLCanvasElement}
  */
-const maskCanvasCtx = createBannerCanvas();
-const maskOffscreenCanvas = maskCanvasCtx.transferControlToOffscreen();
+const maskCanvas = createBannerCanvas();
+const maskOffscreenCanvas = maskCanvas.transferControlToOffscreen();
+
+
+
+/**
+ * banner render helper canvas
+ * @type {CanvasRenderingContext2D}
+ */
+const colorCanvasCtxMain = createBannerCanvas().getContext('2d');
+
+/**
+ * banner render helper canvas
+ * @type {CanvasRenderingContext2D}
+ */
+const maskCanvasCtxMain = createBannerCanvas().getContext('2d');
 
 
 
 const geneticWorker = new Worker('./js/genetic_worker.js');
 
+let patternsData;
 
 
 geneticWorker.onmessage = function(e) {
-  console.log("ready to go", e);
-  geneticWorker.postMessage({message: 'start'});
+  const message = e.data.message;
+
+  switch (message) {
+    case 'ready':
+      console.log("ready to go", e);
+      geneticWorker.postMessage({message: 'start'});
+      break;
+
+    case 'new_best':
+      const banner = new Banner(Number(maxLayersInput.value), e.data.patterns);
+
+      const canvas = createBannerCanvas();
+      const ctx = canvas.getContext('2d');
+      banner.render(drawPattern, ctx, colors, patternsData, colorCanvasCtxMain, maskCanvasCtxMain);
+      bestsSection.append(canvas);
+      break;
+  }
 }
 
 
 loadPatterns().then((patterns) => {
+
+  // load patterns for main worker
+  loadPatterns().then(patterns => {
+    patternsData = patterns;
+  });
+
 
   startBtn.disabled = false;
 
