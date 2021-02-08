@@ -137,20 +137,24 @@ class BannerGenetic extends Genetic {
     }
 
     // layer exchange mutation
-    for (let i = 1; i < bannerPatterns.length - 2; i += 2) {
+    for (let i = 2; i < bannerPatterns.length; i += 2) {
       if (this.random() < 0.05) {
+        let direction;
 
-        const direction = 4 * Math.round(this.random() + 0.05) - 2;
+        if (i === bannerPatterns.length - 1) direction = -2;
+        else direction = 2 * Math.round(this.random()) - 1;
 
-        if (i + direction >= 0) {
-          const temp = bannerPatterns[i];
-          bannerPatterns[i] = bannerPatterns[i + direction];
+        // swap colors
+        const temp = bannerPatterns[i];
+        bannerPatterns[i] = bannerPatterns[i + direction];
+        bannerPatterns[i + direction] = temp;
 
-          bannerPatterns[i + direction] = temp;
+        // swap patterns (if possible)
+        if (i - 1 + direction >= 0) {
+          const temp = bannerPatterns[i - 1];
+          bannerPatterns[i - 1] = bannerPatterns[i - 1 + direction];
+          bannerPatterns[i - 1 + direction] = temp;
         }
-        const temp = bannerPatterns[i + 1];
-        bannerPatterns[i + 1] = bannerPatterns[i + direction + 1];
-        bannerPatterns[i + direction + 1] = temp;
       }
     }
 
