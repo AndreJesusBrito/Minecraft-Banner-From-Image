@@ -147,6 +147,13 @@ async function resume() {
   const nextGenMessage = {'message': 'nextGen'};
 
   while (genetic.toleranceCount < genetic.tolerance && running ) {
+
+    // elite replacement
+    while (genetic.random() <= 0.4) {
+      const pos = Math.floor(genetic.population.length * genetic.random());
+      genetic.population[pos] = genetic.best;
+    }
+
     genetic.nextGeneration();
 
     // pass the contexts to the new generation
